@@ -1,3 +1,15 @@
+"use strict";
+
+/**
+ * @typedef {Object} ElectionStep
+ * @property {string} id - Unique identifier for the step
+ * @property {string} title - The title of the election step
+ * @property {string} icon - FontAwesome icon class
+ * @property {string} shortDesc - A brief description of the step
+ * @property {string} longDesc - A detailed description shown in the modal
+ * @property {string[]} facts - Key facts related to this step
+ */
+
 // Election Process Data
 const electionSteps = [
     {
@@ -91,7 +103,10 @@ const qaDatabase = [
     }
 ];
 
-// Initialize Timeline
+/**
+ * Initializes the interactive timeline by dynamically generating HTML
+ * elements for each step in the electionSteps array.
+ */
 function initTimeline() {
     const timelineContainer = document.getElementById('timeline-items');
     
@@ -125,6 +140,11 @@ function initTimeline() {
     });
 }
 
+/**
+ * Opens the modal and populates it with the details of the selected step.
+ * 
+ * @param {ElectionStep} step - The election step data object.
+ */
 function openModal(step) {
     const modal = document.getElementById('step-modal');
     const closeBtn = document.querySelector('.close-btn');
@@ -148,6 +168,10 @@ function openModal(step) {
     if (closeBtn) closeBtn.focus();
 }
 
+/**
+ * Initializes the modal component, setting up event listeners for closing
+ * the modal via click and keyboard events.
+ */
 function initModal() {
     const modal = document.getElementById('step-modal');
     const closeBtn = document.querySelector('.close-btn');
@@ -173,7 +197,10 @@ function initModal() {
     });
 }
 
-// Assistant Logic
+/**
+ * Initializes the civic assistant chat interface by creating clickable
+ * question chips based on the qaDatabase array.
+ */
 function initAssistant() {
     const chipsContainer = document.getElementById('question-chips');
     const chatArea = document.getElementById('chat-area');
@@ -198,6 +225,13 @@ function initAssistant() {
     });
 }
 
+/**
+ * Handles user interactions with the assistant, appending the user's question
+ * to the chat area and simulating a response delay.
+ * 
+ * @param {string} question - The user's question.
+ * @param {string} answer - The assistant's response.
+ */
 function handleQuestion(question, answer) {
     const chatArea = document.getElementById('chat-area');
     
