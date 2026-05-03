@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Democracy Guide | Interactive Election Assistant</title>
+    <meta name="description" content="An interactive guide to understanding the election process, timelines, and how the voting system works.">
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <div class="background-elements">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+        <div class="blob blob-3"></div>
+    </div>
+
+    <header>
+        <div class="logo">
+            <i class="fa-solid fa-check-to-slot"></i>
+            <span>DemocracyGuide</span>
+        </div>
+        <nav>
+            <a href="#hero">Home</a>
+            <a href="#process">The Process</a>
+            <a href="#assistant">Ask Assistant</a>
+        </nav>
+    </header>
+
+    <main>
+        <section id="hero" class="hero">
+            <div class="hero-content">
+                <h1>Understand Your <span class="highlight">Democracy</span></h1>
+                <p>Your interactive guide to the election process. Learn how your vote shapes the future through our step-by-step timeline and AI-powered assistant.</p>
+                <a href="#process" class="btn primary-btn">Start the Journey <i class="fa-solid fa-arrow-down"></i></a>
+            </div>
+            <div class="hero-image">
+                <div class="glass-card vote-card pulse">
+                    <i class="fa-solid fa-check-circle success-icon"></i>
+                    <h3>Every Vote Counts</h3>
+                    <p>Participating in elections is the foundation of a healthy democracy.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="process" class="timeline-section">
+            <div class="section-header">
+                <h2>The Election <span class="highlight">Process</span></h2>
+                <p>Follow the journey from registration to results.</p>
+            </div>
+            
+            <div class="timeline-container">
+                <div class="timeline-line"></div>
+                
+                <!-- Timeline items will be injected by JavaScript -->
+                <div id="timeline-items"></div>
+            </div>
+        </section>
+
+        <section id="assistant" class="assistant-section">
+            <div class="assistant-container glass-panel">
+                <div class="assistant-header">
+                    <div class="avatar">
+                        <i class="fa-solid fa-robot"></i>
+                    </div>
+                    <div>
+                        <h3>Civic Assistant</h3>
+                        <span class="status">Online | Ready to help</span>
+                    </div>
+                </div>
+                
+                <div class="chat-area" id="chat-area">
+                    <div class="message assistant-message">
+                        Hello! I'm your Civic Assistant. I can help you understand how elections work. What would you like to know?
+                    </div>
+                    <!-- Chat messages will appear here -->
+                </div>
+                
+                <div class="quick-questions">
+                    <p>Common questions:</p>
+                    <div class="question-chips" id="question-chips">
+                        <!-- Chips injected by JS -->
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 DemocracyGuide | Empowering voters through education.</p>
+    </footer>
+
+    <!-- Modal for Timeline Details -->
+    <div id="step-modal" class="modal">
+        <div class="modal-content glass-panel">
+            <span class="close-btn"><i class="fa-solid fa-xmark"></i></span>
+            <div class="modal-header">
+                <div class="modal-icon" id="modal-icon"></div>
+                <h2 id="modal-title">Step Title</h2>
+            </div>
+            <div class="modal-body">
+                <p id="modal-description">Description goes here.</p>
+                <div class="key-facts" id="modal-facts">
+                    <!-- Facts injected by JS -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
