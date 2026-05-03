@@ -98,28 +98,38 @@ function initTimeline() {
     electionSteps.forEach((step, index) => {
         const item = document.createElement('div');
         item.className = 'timeline-item';
+        item.tabIndex = 0;
+        item.setAttribute('role', 'button');
+        item.setAttribute('aria-label', `Learn more about ${step.title}`);
         
         item.innerHTML = `
-            <div class="timeline-icon">
+            <div class="timeline-icon" aria-hidden="true">
                 <i class="fa-solid ${step.icon}"></i>
             </div>
             <div class="timeline-content glass-panel">
                 <h3>${index + 1}. ${step.title}</h3>
                 <p>${step.shortDesc}</p>
-                <span class="read-more">Learn more <i class="fa-solid fa-arrow-right"></i></span>
+                <span class="read-more" aria-hidden="true">Learn more <i class="fa-solid fa-arrow-right"></i></span>
             </div>
         `;
         
-        item.addEventListener('click', () => openModal(step));
+        const openModalHandler = () => openModal(step);
+        item.addEventListener('click', openModalHandler);
+        item.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                openModalHandler();
+            }
+        });
         timelineContainer.appendChild(item);
     });
 }
 
-// Modal Logic
-const modal = document.getElementById('step-modal');
-const closeBtn = document.querySelector('.close-btn');
-
 function openModal(step) {
+    const modal = document.getElementById('step-modal');
+    const closeBtn = document.querySelector('.close-btn');
+    if (!modal) return;
+    
     document.getElementById('modal-title').textContent = step.title;
     document.getElementById('modal-icon').innerHTML = `<i class="fa-solid ${step.icon}"></i>`;
     document.getElementById('modal-description').textContent = step.longDesc;
@@ -134,17 +144,34 @@ function openModal(step) {
     });
     
     modal.classList.add('active');
+    modal.setAttribute('aria-hidden', 'false');
+    if (closeBtn) closeBtn.focus();
 }
 
-closeBtn.addEventListener('click', () => {
-    modal.classList.remove('active');
-});
+function initModal() {
+    const modal = document.getElementById('step-modal');
+    const closeBtn = document.querySelector('.close-btn');
+    if (!modal || !closeBtn) return;
 
-window.addEventListener('click', (e) => {
-    if (e.target === modal) {
+    closeBtn.addEventListener('click', () => {
         modal.classList.remove('active');
-    }
-});
+        modal.setAttribute('aria-hidden', 'true');
+    });
+
+    window.addEventListener('click', (e) => {
+        if (e.target === modal) {
+            modal.classList.remove('active');
+            modal.setAttribute('aria-hidden', 'true');
+        }
+    });
+
+    window.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && modal.classList.contains('active')) {
+            modal.classList.remove('active');
+            modal.setAttribute('aria-hidden', 'true');
+        }
+    });
+}
 
 // Assistant Logic
 function initAssistant() {
@@ -156,7 +183,17 @@ function initAssistant() {
         const chip = document.createElement('div');
         chip.className = 'chip';
         chip.textContent = qa.question;
-        chip.addEventListener('click', () => handleQuestion(qa.question, qa.answer));
+        chip.tabIndex = 0;
+        chip.setAttribute('role', 'button');
+        
+        const askQuestion = () => handleQuestion(qa.question, qa.answer);
+        chip.addEventListener('click', askQuestion);
+        chip.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                askQuestion();
+            }
+        });
         chipsContainer.appendChild(chip);
     });
 }
@@ -189,4 +226,14 @@ function handleQuestion(question, answer) {
 document.addEventListener('DOMContentLoaded', () => {
     initTimeline();
     initAssistant();
+    initModal();
 });
+
+// Export for testing
+if (typeof module !== 'undefined' && module.exports) {
+    module.exports = {
+        electionSteps,
+        qaDatabase,
+        handleQuestion
+    };
+}

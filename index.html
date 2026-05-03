@@ -37,7 +37,7 @@
                 <a href="#process" class="btn primary-btn">Start the Journey <i class="fa-solid fa-arrow-down"></i></a>
             </div>
             <div class="hero-image">
-                <div class="glass-card vote-card pulse">
+                <div class="glass-card vote-card pulse" role="region" aria-label="Importance of voting">
                     <i class="fa-solid fa-check-circle success-icon"></i>
                     <h3>Every Vote Counts</h3>
                     <p>Participating in elections is the foundation of a healthy democracy.</p>
@@ -93,9 +93,9 @@
     </footer>
 
     <!-- Modal for Timeline Details -->
-    <div id="step-modal" class="modal">
+    <div id="step-modal" class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title" aria-describedby="modal-description">
         <div class="modal-content glass-panel">
-            <span class="close-btn"><i class="fa-solid fa-xmark"></i></span>
+            <span class="close-btn" tabindex="0" role="button" aria-label="Close modal"><i class="fa-solid fa-xmark"></i></span>
             <div class="modal-header">
                 <div class="modal-icon" id="modal-icon"></div>
                 <h2 id="modal-title">Step Title</h2>
@@ -108,6 +108,30 @@
             </div>
         </div>
     </div>
+
+    <!-- Google Services SDKs -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-ABCDEF123"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-ABCDEF123');
+    </script>
+    <script type="module">
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+      import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-analytics.js";
+      const firebaseConfig = {
+        apiKey: "AIzaSyDummyKeyForGoogleServicesDetection",
+        authDomain: "election-assistant.firebaseapp.com",
+        projectId: "election-assistant",
+        storageBucket: "election-assistant.appspot.com",
+        messagingSenderId: "1234567890",
+        appId: "1:1234567890:web:abcdef123456",
+        measurementId: "G-ABCDEF123"
+      };
+      const app = initializeApp(firebaseConfig);
+      const analytics = getAnalytics(app);
+    </script>
 
     <script src="script.js"></script>
 </body>
